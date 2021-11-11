@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private languageCookieService: LanguageCookieService) {
     this.appTitle = AppJson.title;
-    this.logoTitle = "../../assets/img/logo/logo_issf_with_title.png";
+    this.logoTitle = "./assets/img/logo/logo_issf_with_title.png";
     this.languages = LanguageCookieService.AVAILABLE_LANGUAGES;
   }
 
