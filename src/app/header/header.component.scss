@@ -1,0 +1,39 @@
+@import '../../classic-theme.scss';
+
+#header {
+    height: 7vh;
+    display: flex;
+    background-color: $background-element;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+}
+
+h1 {
+    margin: auto 0;
+    margin-left: 2vw;
+    font-size: xx-large;
+    font-weight: bolder;
+    color: $dark-font;
+}
+
+#language {
+    display: flex;
+    margin-left: auto;
+}
+
+.flag-icon {
+    width: 32px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    cursor: pointer;
+}
+
+.flag-icon:hover {
+    opacity: 0.7;
+}
+
+.flag-selected {
+    border-bottom: 3px solid $selected;
+}

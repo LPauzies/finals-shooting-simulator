@@ -1,0 +1,12 @@
+<div id="header">
+    <img class="header-logo" [src]="logoTitle">
+    <h1>{{ appTitle }}</h1>
+    <div id="language">
+        <span 
+            *ngFor="let language of languages" 
+            [className]="(language.language === selectedLanguage) ? 'flag-icon flag-selected flag-icon-' + language.flag : 'flag-icon flag-icon-' + language.flag" 
+            (click)="setLanguage(language.language)">
+        </span>
+    </div>
+</div>
+<mat-divider></mat-divider>

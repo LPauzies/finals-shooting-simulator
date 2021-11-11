@@ -1,0 +1,11 @@
+@import '../../classic-theme.scss';
+
+#footer {
+    height: 7vh;
+    display: flex;
+    background-color: $background-element;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 0.4vh;
+    padding-bottom: 0.4vh;
+}

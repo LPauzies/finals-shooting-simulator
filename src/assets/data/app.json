@@ -1,0 +1,22 @@
+{
+    "title": "Finals Shooting Simulator",
+    "owner": {
+        "name": "Lucas Pauzies",
+        "links": {
+            "linkedin": "https://www.linkedin.com/in/lucas-pauzies/",
+            "twitter": "https://twitter.com/Cair0n_",
+            "facebook": "https://www.facebook.com/lucas.pauzies",
+            "mail": "lucas.pauzies@hotmail.fr"
+        }
+    },
+    "technical": {
+        "angular": {
+            "name": "Angular 13",
+            "link": "https://angular.io/"
+        },
+        "angularmaterial": {
+            "name": "Angular Material",
+            "link": "https://material.angular.io/"
+        }
+    }
+}
