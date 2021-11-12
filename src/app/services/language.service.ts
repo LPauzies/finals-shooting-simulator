@@ -15,7 +15,7 @@ export class LanguageService {
 
     getAppData(): Observable<any> {
         let language = this.languageCookieService.getLanguage();
-        return this.httpClient.get(`/assets/data/static/${language}.json`);
+        return this.httpClient.get(`./assets/data/static/${language}.json`);
     }
 
 }
