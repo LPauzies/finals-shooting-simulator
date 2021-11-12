@@ -3,20 +3,42 @@
     "owner": {
         "name": "Lucas Pauzies",
         "links": {
-            "linkedin": "https://www.linkedin.com/in/lucas-pauzies/",
-            "twitter": "https://twitter.com/Cair0n_",
-            "facebook": "https://www.facebook.com/lucas.pauzies",
-            "mail": "lucas.pauzies@hotmail.fr"
+            "linkedin": {
+                "link": "https://www.linkedin.com/in/lucas-pauzies/",
+                "icon": "fab fa-linkedin"
+            },
+            "twitter": {
+                "link": "https://twitter.com/Cair0n_",
+                "icon": "fab fa-twitter"
+            },
+            "facebook": {
+                "link": "https://www.facebook.com/lucas.pauzies",
+                "icon": "fab fa-facebook-square"
+            },
+            "mail": {
+                "link": "mailto:lucas.pauzies@hotmail.fr?subject=Contact Finals Shooting Simulator",
+                "icon": "fas fa-envelope"
+            },
+            "paypal": {
+                "link": "https://www.paypal.com/donate/?hosted_button_id=8KE4KAYBSVUKG",
+                "icon": "fab fa-paypal"
+            }
         }
     },
     "technical": {
         "angular": {
             "name": "Angular 13",
-            "link": "https://angular.io/"
+            "link": "https://angular.io/",
+            "icon": "fab fa-angular"
         },
         "angularmaterial": {
             "name": "Angular Material",
             "link": "https://material.angular.io/"
+        }
+    },
+    "app": {
+        "tcu": {
+            "icon": "fas fa-file-signature"
         }
     }
 }

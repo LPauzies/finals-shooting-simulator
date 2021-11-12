@@ -1,0 +1,34 @@
+{
+    "header": {},
+    "footer": {
+        "tcu": "Conditions Générales d'Utilisation",
+        "created_by": "Créé par",
+        "support": "Me soutenir" 
+    },
+    "tcu": {
+        "title": "Conditions Générales d'Utilisation",
+        "description": {
+            "label": "Description",
+            "content": "Ce site a pour vocation a produire des simulations de tir sportif. Il accompagne les entraineurs ainsi que les tireurs qui veulent créer une adversité pendant une phase finale de tir sportif."
+        },
+        "rights": {
+            "label": "Droits et obligations de l'utilisateur",
+            "content": "Ce site utilise un cookie pour stocker la préférence de langage de l'utilisateur pour un plus grand confort de navigation et d'utilisation. Ce site web ne reccueille aucune donnée utilisateur hormis le langage utilisé. L'application est dite \"vitrine\" car elle ne communique avec aucun autre service tiers sur Internet. La génération du modèle de machine learning ayant été faite en amont et l'équation de génération des tirs implémentée et utilisée par la suite via la technologie Javascript."
+        },
+        "data": {
+            "label": "Génération de données",
+            "content": "Pour simuler un tir, ce site se base sur une base de données publique de résultats à tous niveau sportif (départemental, régional, national, international, olympique). <br> Cette base de donnée se fournit sur les résultat de la <a href='https://www.fftir.org/' target='_blank'>Fédération Française de Tir</a> et de l'<a href='https://www.issf-sports.org/' target='_blank'>ISSF</a>. <br> La donnée a fait l'objet d'un travail d'intelligence artificielle de la part de Lucas Pauzies pour créer un modèle générateur permettant de simuler un tir selon les paramètres précisés précédemment."
+        },
+        "property": {
+            "label": "Droits commerciaux",
+            "content": "Ce site ne peut pas être utilisé à des fins commerciales. Toute utilisation annexe doit faire l'objet d'une demande envers <b>Lucas Pauzies</b>, développeur ayant créé l'application ci-présente."
+        },
+        "responsability": {
+            "label": "Responsabilité de l'éditeur",
+            "content": "Ce site met en place de multiples redirections. L'éditeur se décharge de toute responsabilité dans le cas où les dîtes redirections pointeraient vers des sites tiers dont le contenu est jugé illicite."
+        },
+        "actions": {
+            "ok": "D'accord"
+        }
+    }
+}
