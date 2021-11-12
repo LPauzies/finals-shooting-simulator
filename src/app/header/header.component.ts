@@ -21,8 +21,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let lang = (this.languageCookieService.checkLanguage()) ? this.languageCookieService.getLanguage() : this.getDefaultLanguage();
-    this.setLanguage(lang);
+    let cookieExists = this.languageCookieService.checkLanguage()
+    let lang = (cookieExists) ? this.languageCookieService.getLanguage() : this.getDefaultLanguage();
+    this.languageCookieService.setLanguage(lang);
+    this.selectedLanguage = lang;
+    if (!cookieExists) this.refresh();
   }
 
   getDefaultLanguage(): string {
@@ -34,6 +37,11 @@ export class HeaderComponent implements OnInit {
   setLanguage(isoCountry: string): void {
     this.languageCookieService.setLanguage(isoCountry);
     this.selectedLanguage = isoCountry;
+    this.refresh();
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

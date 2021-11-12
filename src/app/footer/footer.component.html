@@ -1,41 +1,45 @@
 <mat-divider></mat-divider>
-<div id="footer">
+<div id="footer" *ngIf="loading"></div>
+<div id="footer" *ngIf="!loading">
     <mat-grid-list cols="3" rowHeight="fit" id="footer-grid">
         <mat-grid-tile>
             <span id="tcu" (click)="openTCUDialog()">
-                Conditions générales d'utilisation &nbsp; <i [className]="app.tcu.icon"></i>
+                {{ appData.footer.tcu }} &nbsp; <i [className]="app.tcu.icon"></i>
             </span>
         </mat-grid-tile>
         <mat-grid-tile>
-            <span>
-                Créé par {{ owner.name }} 
+            <span id="owner">
+                {{ appData.footer.created_by }} {{ owner.name }}
                 &nbsp;
                 <a [href]="owner.links.linkedin.link" target="_blank">
-                    <i [className]="owner.links.linkedin.icon"></i>
+                    <i [style.color]="owner.links.linkedin.color" [className]="owner.links.linkedin.icon"></i>
                 </a> 
                 &nbsp;
                 <a [href]="owner.links.twitter.link" target="_blank">
-                    <i [className]="owner.links.twitter.icon"></i>
+                    <i [style.color]="owner.links.twitter.color" [className]="owner.links.twitter.icon"></i>
                 </a>
                 &nbsp;
                 <a [href]="owner.links.facebook.link" target="_blank">
-                    <i [className]="owner.links.facebook.icon"></i>
+                    <i [style.color]="owner.links.facebook.color" [className]="owner.links.facebook.icon"></i>
                 </a>
                 &nbsp;
                 <a [href]="owner.links.twitter.link" target="_blank">
-                    <i [className]="owner.links.mail.icon"></i>
+                    <i [style.color]="owner.links.mail.color" [className]="owner.links.mail.icon"></i>
                 </a>
                 <br>
-                Me soutenir 
+                {{ appData.footer.support }}
                 &nbsp;
                 <a [href]="owner.links.paypal.link" target="_blank">
-                    <i [className]="owner.links.paypal.icon"></i>
+                    <i [style.color]="owner.links.paypal.color" [className]="owner.links.paypal.icon"></i>
                 </a>
             </span>
         </mat-grid-tile>
         <mat-grid-tile>
-            <span>
-
+            <span id="technical">
+                {{ appData.footer.made_with }}
+                <a [href]="technical.angular.link" target="_blank">
+                    {{ technical.angular.name }} &nbsp;<i [style.color]="technical.angular.color" [className]="technical.angular.icon"></i>
+                </a>
             </span>
         </mat-grid-tile>
     </mat-grid-list>

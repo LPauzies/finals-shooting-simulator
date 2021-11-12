@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import AppJson from 'src/assets/data/app.json';
-import { LanguageCookieService } from 'src/app/services/cookie.service';
 import { TcuDialogComponent } from 'src/app/tcu-dialog/tcu-dialog.component';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-footer',
@@ -11,17 +11,24 @@ import { TcuDialogComponent } from 'src/app/tcu-dialog/tcu-dialog.component';
 })
 export class FooterComponent implements OnInit {
 
+  loading: boolean;
   owner: any;
   technical: any;
   app: any;
+  appData?: any;
 
   constructor(
-    private languageCookieService: LanguageCookieService,
+    private languageService: LanguageService,
     public dialog: MatDialog
     ) {
+    this.loading = true;
     this.owner = AppJson.owner;
     this.technical = AppJson.technical;
     this.app = AppJson.app;
+    this.languageService.getAppData().subscribe(data => {
+      this.appData = data;
+      this.loading = false;
+    });
   }
 
   ngOnInit(): void {

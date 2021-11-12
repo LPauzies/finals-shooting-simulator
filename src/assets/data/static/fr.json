@@ -3,7 +3,8 @@
     "footer": {
         "tcu": "Conditions Générales d'Utilisation",
         "created_by": "Créé par",
-        "support": "Me soutenir" 
+        "support": "Me soutenir",
+        "made_with": "Fait avec"
     },
     "tcu": {
         "title": "Conditions Générales d'Utilisation",
