@@ -4,12 +4,12 @@
     <mat-grid-list cols="3" rowHeight="fit" id="footer-grid">
         <mat-grid-tile>
             <span id="tcu" (click)="openTCUDialog()">
-                {{ appData.footer.tcu }} &nbsp; <i [className]="app.tcu.icon"></i>
+                {{ appData.tcu }} &nbsp; <i [className]="app.tcu.icon"></i>
             </span>
         </mat-grid-tile>
         <mat-grid-tile>
             <span id="owner">
-                {{ appData.footer.created_by }} {{ owner.name }}
+                {{ appData.created_by }} {{ owner.name }}
                 &nbsp;
                 <a [href]="owner.links.linkedin.link" target="_blank">
                     <i [style.color]="owner.links.linkedin.color" [className]="owner.links.linkedin.icon"></i>
@@ -27,7 +27,7 @@
                     <i [style.color]="owner.links.mail.color" [className]="owner.links.mail.icon"></i>
                 </a>
                 <br>
-                {{ appData.footer.support }}
+                {{ appData.support }}
                 &nbsp;
                 <a [href]="owner.links.paypal.link" target="_blank">
                     <i [style.color]="owner.links.paypal.color" [className]="owner.links.paypal.icon"></i>
@@ -36,7 +36,7 @@
         </mat-grid-tile>
         <mat-grid-tile>
             <span id="technical">
-                {{ appData.footer.made_with }}
+                {{ appData.made_with }}
                 <a [href]="technical.angular.link" target="_blank">
                     {{ technical.angular.name }} &nbsp;<i [style.color]="technical.angular.color" [className]="technical.angular.icon"></i>
                 </a>

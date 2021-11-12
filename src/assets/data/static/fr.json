@@ -31,5 +31,48 @@
         "actions": {
             "ok": "D'accord"
         }
+    },
+    "navbar": {
+        "sex": "Sexe",
+        "category": "Catégorie",
+        "level": "Niveau de compétition",
+        "shooternumber": "Nombre de tireurs",
+        "shooterlabel": "Nom de tireur",
+        "names": "Noms",
+        "choices": {
+            "sex": [
+                { "value": "M", "label": "Homme" },
+                { "value": "F", "label": "Femme" }
+            ],
+            "category": {
+                "M": [
+                    { "value": "CG", "label": "Cadet" },
+                    { "value": "JG", "label": "Junior" },
+                    { "value": "S1", "label": "Senior 1" },
+                    { "value": "S2", "label": "Senior 2" },
+                    { "value": "S3", "label": "Senior 3" }
+                ],
+                "F": [
+                    { "value": "CF", "label": "Cadette" },
+                    { "value": "JF", "label": "Junior" },
+                    { "value": "D1", "label": "Dame 1" },
+                    { "value": "D2", "label": "Dame 2" },
+                    { "value": "D3", "label": "Dame 3" }
+                ]
+            },
+            "level": [
+                { "value": "local", "label": "Départemental" },
+                { "value": "region", "label": "Régional" },
+                { "value": "national", "label": "National" },
+                { "value": "global", "label": "International" },
+                { "value": "olympic", "label": "Olympique" }
+            ],
+            "shooternumber": [
+                1, 2, 3, 4
+            ]
+        },
+        "actions": {
+            "simulate": "Simuler une finale" 
+        }
     }
 }

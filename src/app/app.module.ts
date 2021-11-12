@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -9,6 +10,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +28,7 @@ import { TcuDialogComponent } from './tcu-dialog/tcu-dialog.component';
 
 import { LanguageCookieService } from 'src/app/services/cookie.service';
 import { LanguageService } from 'src/app/services/language.service';
+import { SimulationPanelComponent } from './simulation-panel/simulation-panel.component';
 
 
 @NgModule({
@@ -30,7 +37,8 @@ import { LanguageService } from 'src/app/services/language.service';
     FooterComponent,
     HeaderComponent,
     NavbarComponent,
-    TcuDialogComponent
+    TcuDialogComponent,
+    SimulationPanelComponent
   ],
   imports: [
     HttpClientModule,
@@ -43,7 +51,12 @@ import { LanguageService } from 'src/app/services/language.service';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [
     CookieService,

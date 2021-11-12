@@ -1,0 +1,50 @@
+
+<nav id="navbar" *ngIf="loading"></nav>
+<nav id="navbar" *ngIf="!loading">
+
+    <form id="form">
+        <mat-form-field appearance="fill">
+            <mat-label>{{ appData.navbar.sex }}</mat-label>
+            <mat-select [formControl]="sexControl" (selectionChange)="refreshCategories($event)">
+                <mat-option *ngFor="let sex of appData.navbar.choices.sex" [value]="sex.value">
+                {{ sex.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ appData.navbar.category }}</mat-label>
+            <mat-select [formControl]="categoryControl">
+                <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ appData.navbar.level }}</mat-label>
+            <mat-select [formControl]="levelControl">
+                <mat-option *ngFor="let level of appData.navbar.choices.level" [value]="level.value">
+                {{ level.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ appData.navbar.shooternumber }}</mat-label>
+            <mat-select [formControl]="shooterNumberControl" (selectionChange)="refreshShooterNames($event)">
+                <mat-option *ngFor="let shooternumber of appData.navbar.choices.shooternumber" [value]="shooternumber">
+                {{ shooternumber }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div id="names">
+            <mat-form-field appearance="fill" *ngFor="let name of names; let index=index">
+                <mat-label>{{ appData.navbar.shooterlabel + ' ' + (index+1) }}</mat-label>
+                <input matInput [formControl]="name">
+            </mat-form-field>
+        </div>
+    </form>
+    <br>
+    <button mat-raised-button color="primary" (click)="createSimulation()">{{ appData.navbar.actions.simulate | uppercase }}</button>
+    
+</nav>
