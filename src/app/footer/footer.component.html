@@ -1,6 +1,42 @@
 <mat-divider></mat-divider>
 <div id="footer">
-    <span>
-        Made by {{ owner }}
-    </span>
+    <mat-grid-list cols="3" rowHeight="fit" id="footer-grid">
+        <mat-grid-tile>
+            <span id="tcu" (click)="openTCUDialog()">
+                Conditions générales d'utilisation &nbsp; <i [className]="app.tcu.icon"></i>
+            </span>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <span>
+                Créé par {{ owner.name }} 
+                &nbsp;
+                <a [href]="owner.links.linkedin.link" target="_blank">
+                    <i [className]="owner.links.linkedin.icon"></i>
+                </a> 
+                &nbsp;
+                <a [href]="owner.links.twitter.link" target="_blank">
+                    <i [className]="owner.links.twitter.icon"></i>
+                </a>
+                &nbsp;
+                <a [href]="owner.links.facebook.link" target="_blank">
+                    <i [className]="owner.links.facebook.icon"></i>
+                </a>
+                &nbsp;
+                <a [href]="owner.links.twitter.link" target="_blank">
+                    <i [className]="owner.links.mail.icon"></i>
+                </a>
+                <br>
+                Me soutenir 
+                &nbsp;
+                <a [href]="owner.links.paypal.link" target="_blank">
+                    <i [className]="owner.links.paypal.icon"></i>
+                </a>
+            </span>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <span>
+
+            </span>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>

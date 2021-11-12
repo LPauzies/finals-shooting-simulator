@@ -1,0 +1,19 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+    <h1 mat-dialog-title>{{ appData.tcu.title }}</h1>
+    <mat-dialog-content>
+        <h2>{{ appData.tcu.description.label }}</h2>
+        <p [innerHTML]="appData.tcu.description.content"></p>
+        <h2>{{ appData.tcu.rights.label }}</h2>
+        <p [innerHTML]="appData.tcu.rights.content"></p>
+        <h2>{{ appData.tcu.data.label }}</h2>
+        <p [innerHTML]="appData.tcu.data.content"></p>
+        <h2>{{ appData.tcu.property.label }}</h2>
+        <p [innerHTML]="appData.tcu.property.content"></p>
+        <h2>{{ appData.tcu.responsability.label }}</h2>
+        <p [innerHTML]="appData.tcu.responsability.content"></p>
+    </mat-dialog-content>
+    <mat-dialog-actions id="action-bar">
+        <button mat-raised-button color="primary" mat-dialog-close>{{ appData.tcu.actions.ok | uppercase }}</button>
+    </mat-dialog-actions>
+</div>

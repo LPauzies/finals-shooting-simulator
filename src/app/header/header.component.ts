@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.languageCookieService.checkLanguage()) this.selectedLanguage = this.languageCookieService.getLanguage();
-    else this.selectedLanguage = this.getDefaultLanguage();
+    let lang = (this.languageCookieService.checkLanguage()) ? this.languageCookieService.getLanguage() : this.getDefaultLanguage();
+    this.setLanguage(lang);
   }
 
   getDefaultLanguage(): string {
