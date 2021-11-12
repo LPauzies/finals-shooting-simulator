@@ -5,35 +5,37 @@
         "links": {
             "linkedin": {
                 "link": "https://www.linkedin.com/in/lucas-pauzies/",
-                "icon": "fab fa-linkedin"
+                "icon": "fab fa-linkedin",
+                "color": "#007ee0"
             },
             "twitter": {
                 "link": "https://twitter.com/Cair0n_",
-                "icon": "fab fa-twitter"
+                "icon": "fab fa-twitter",
+                "color": "#00e0e0"
             },
             "facebook": {
                 "link": "https://www.facebook.com/lucas.pauzies",
-                "icon": "fab fa-facebook-square"
+                "icon": "fab fa-facebook-square",
+                "color": "#007ee0"
             },
             "mail": {
                 "link": "mailto:lucas.pauzies@hotmail.fr?subject=Contact Finals Shooting Simulator",
-                "icon": "fas fa-envelope"
+                "icon": "fas fa-envelope",
+                "color": "#000000"
             },
             "paypal": {
                 "link": "https://www.paypal.com/donate/?hosted_button_id=8KE4KAYBSVUKG",
-                "icon": "fab fa-paypal"
+                "icon": "fab fa-paypal",
+                "color": "#00457a"
             }
         }
     },
     "technical": {
         "angular": {
-            "name": "Angular 13",
+            "name": "Angular",
             "link": "https://angular.io/",
-            "icon": "fab fa-angular"
-        },
-        "angularmaterial": {
-            "name": "Angular Material",
-            "link": "https://material.angular.io/"
+            "icon": "fab fa-angular",
+            "color": "#c80000"
         }
     },
     "app": {
