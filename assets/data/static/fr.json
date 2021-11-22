@@ -74,5 +74,15 @@
         "actions": {
             "simulate": "Simuler une finale" 
         }
+    },
+    "help": {
+        "description": "Cette application a pour but de simuler une finale de tir sportif.",
+        "rules": [
+            "Choisissez la catégorie pour laquelle vous voulez simuler la finale.",
+            "Choisissez le niveau associé à cette finale. Les tirs réalisés, générés par l'ordinateur, se calent sur le niveau actuel de chaque niveau de compétition.",
+            "Choisissez le nombre de tireurs pour lesquels vous voulez créer cette finale.",
+            "Nommez vos tireurs pour pouvoir facilement rentrer leurs points dans le simulateur.",
+            "Lancez la simulation grâce au bouton \"SIMULER UNE FINALE\""
+        ]
     }
 }
