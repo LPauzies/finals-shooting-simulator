@@ -6,14 +6,14 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LanguageCookieService {
 
-    public static readonly KEY = "language"
-    public static readonly DEFAULT_EXPIRATION_VALUE = 365
+    public static readonly KEY = "language";
+    public static readonly DEFAULT_EXPIRATION_VALUE = 365;
     // Available language values
     public static readonly AVAILABLE_LANGUAGES = [
         { language: "fr", flag: "fr" }, 
         { language: "en", flag: "gb" }
-    ]
-    public static readonly DEFAULT_LANGUAGE = "en"
+    ];
+    public static readonly DEFAULT_LANGUAGE = "en";
 
     constructor(
         private cookieService: CookieService 

@@ -25,9 +25,13 @@ export class FooterComponent implements OnInit {
     this.owner = AppJson.owner;
     this.technical = AppJson.technical;
     this.app = AppJson.app;
-    this.languageService.getAppData().subscribe(data => {
-      this.appData = data.footer;
-      this.loading = false;
+    this.languageService.getCurrentAppData().subscribe(data => {
+      if (!LanguageService.isDefaultAppData(data)) {
+        this.appData = data.footer;
+        this.loading = false;
+      } else {
+        this.loading = true;
+      }
     });
   }
 

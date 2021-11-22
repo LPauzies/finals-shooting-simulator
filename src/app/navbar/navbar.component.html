@@ -1,6 +1,8 @@
 
-<nav id="navbar" *ngIf="loading"></nav>
-<nav id="navbar" *ngIf="!loading">
+<nav id="navbar" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</nav>
+<nav id="navbar" *ngIf="!loading && appData && categories">
 
     <form id="form">
         <mat-form-field appearance="fill">
@@ -44,7 +46,9 @@
             </mat-form-field>
         </div>
     </form>
+
     <br>
+    
     <button mat-raised-button color="primary" (click)="createSimulation()">{{ appData.navbar.actions.simulate | uppercase }}</button>
     
 </nav>

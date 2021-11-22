@@ -14,6 +14,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list'; 
+import { MatToolbarModule } from '@angular/material/toolbar'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +30,9 @@ import { TcuDialogComponent } from './tcu-dialog/tcu-dialog.component';
 
 import { LanguageCookieService } from 'src/app/services/cookie.service';
 import { LanguageService } from 'src/app/services/language.service';
+import { SimulationParametersService } from 'src/app/services/parameters.service';
 import { SimulationPanelComponent } from './simulation-panel/simulation-panel.component';
+import { HelpComponent } from './help/help.component';
 
 
 @NgModule({
@@ -38,7 +42,8 @@ import { SimulationPanelComponent } from './simulation-panel/simulation-panel.co
     HeaderComponent,
     NavbarComponent,
     TcuDialogComponent,
-    SimulationPanelComponent
+    SimulationPanelComponent,
+    HelpComponent
   ],
   imports: [
     HttpClientModule,
@@ -56,12 +61,15 @@ import { SimulationPanelComponent } from './simulation-panel/simulation-panel.co
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatToolbarModule
   ],
   providers: [
     CookieService,
     LanguageCookieService,
-    LanguageService
+    LanguageService,
+    SimulationParametersService
   ],
   bootstrap: [AppComponent]
 })

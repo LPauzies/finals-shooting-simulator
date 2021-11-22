@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import AppJson from 'src/assets/data/app.json';
 import { LanguageCookieService } from 'src/app/services/cookie.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,11 @@ export class HeaderComponent implements OnInit {
   languages: Array<any>;
   selectedLanguage? : string;
 
-  constructor(private languageCookieService: LanguageCookieService) {
+  constructor(
+    private languageCookieService: LanguageCookieService,
+    private languageService: LanguageService
+  
+  ) {
     this.appTitle = AppJson.title;
     this.logoTitle = "./assets/img/logo/logo_issf_with_title.png";
     this.languages = LanguageCookieService.AVAILABLE_LANGUAGES;
@@ -22,10 +27,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     let cookieExists = this.languageCookieService.checkLanguage()
-    let lang = (cookieExists) ? this.languageCookieService.getLanguage() : this.getDefaultLanguage();
-    this.languageCookieService.setLanguage(lang);
-    this.selectedLanguage = lang;
-    if (!cookieExists) this.refresh();
+    let language = (cookieExists) ? this.languageCookieService.getLanguage() : this.getDefaultLanguage();
+    this.languageCookieService.setLanguage(language);
+    this.languageService.setCurrentAppData(language);
+    this.selectedLanguage = language;
   }
 
   getDefaultLanguage(): string {
@@ -36,12 +41,8 @@ export class HeaderComponent implements OnInit {
 
   setLanguage(isoCountry: string): void {
     this.languageCookieService.setLanguage(isoCountry);
+    this.languageService.setCurrentAppData(isoCountry);
     this.selectedLanguage = isoCountry;
-    this.refresh();
-  }
-
-  refresh(): void {
-    window.location.reload();
   }
 
 }

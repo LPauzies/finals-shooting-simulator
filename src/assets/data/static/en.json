@@ -1,0 +1,88 @@
+{
+    "header": {},
+    "footer": {
+        "tcu": "Conditions Générales d'Utilisation",
+        "created_by": "Créé par",
+        "support": "Me soutenir",
+        "made_with": "Fait avec"
+    },
+    "tcu": {
+        "title": "Conditions Générales d'Utilisation",
+        "description": {
+            "label": "Description",
+            "content": "Ce site a pour vocation a produire des simulations de tir sportif. Il accompagne les entraineurs ainsi que les tireurs qui veulent créer une adversité pendant une phase finale de tir sportif."
+        },
+        "rights": {
+            "label": "Droits et obligations de l'utilisateur",
+            "content": "Ce site utilise un cookie pour stocker la préférence de langage de l'utilisateur pour un plus grand confort de navigation et d'utilisation. Ce site web ne reccueille aucune donnée utilisateur hormis le langage utilisé. L'application est dite \"vitrine\" car elle ne communique avec aucun autre service tiers sur Internet. La génération du modèle de machine learning ayant été faite en amont et l'équation de génération des tirs implémentée et utilisée par la suite via la technologie Javascript."
+        },
+        "data": {
+            "label": "Génération de données",
+            "content": "Pour simuler un tir, ce site se base sur une base de données publique de résultats à tous niveau sportif (départemental, régional, national, international, olympique). <br> Cette base de donnée se fournit sur les résultat de la <a href='https://www.fftir.org/' target='_blank'>Fédération Française de Tir</a> et de l'<a href='https://www.issf-sports.org/' target='_blank'>ISSF</a>. <br> La donnée a fait l'objet d'un travail d'intelligence artificielle de la part de Lucas Pauzies pour créer un modèle générateur permettant de simuler un tir selon les paramètres précisés précédemment."
+        },
+        "property": {
+            "label": "Droits commerciaux",
+            "content": "Ce site ne peut pas être utilisé à des fins commerciales. Toute utilisation annexe doit faire l'objet d'une demande envers <b>Lucas Pauzies</b>, développeur ayant créé l'application ci-présente."
+        },
+        "responsability": {
+            "label": "Responsabilité de l'éditeur",
+            "content": "Ce site met en place de multiples redirections. L'éditeur se décharge de toute responsabilité dans le cas où les dîtes redirections pointeraient vers des sites tiers dont le contenu est jugé illicite."
+        },
+        "actions": {
+            "ok": "D'accord"
+        }
+    },
+    "navbar": {
+        "sex": "Sexe",
+        "category": "Catégorie",
+        "level": "Niveau de compétition",
+        "shooternumber": "Nombre de tireurs",
+        "shooterlabel": "Nom de tireur",
+        "names": "Noms",
+        "choices": {
+            "sex": [
+                { "value": "M", "label": "Homme" },
+                { "value": "F", "label": "Femme" }
+            ],
+            "category": {
+                "M": [
+                    { "value": "CG", "label": "Cadet" },
+                    { "value": "JG", "label": "Junior" },
+                    { "value": "S1", "label": "Senior 1" },
+                    { "value": "S2", "label": "Senior 2" },
+                    { "value": "S3", "label": "Senior 3" }
+                ],
+                "F": [
+                    { "value": "CF", "label": "Cadette" },
+                    { "value": "JF", "label": "Junior" },
+                    { "value": "D1", "label": "Dame 1" },
+                    { "value": "D2", "label": "Dame 2" },
+                    { "value": "D3", "label": "Dame 3" }
+                ]
+            },
+            "level": [
+                { "value": "local", "label": "Départemental" },
+                { "value": "region", "label": "Régional" },
+                { "value": "national", "label": "National" },
+                { "value": "global", "label": "International" },
+                { "value": "olympic", "label": "Olympique" }
+            ],
+            "shooternumber": [
+                1, 2, 3, 4
+            ]
+        },
+        "actions": {
+            "simulate": "Simuler une finale" 
+        }
+    },
+    "help": {
+        "description": "Cette application a pour but de simuler une finale de tir sportif.",
+        "rules": [
+            "Choisissez la catégorie pour laquelle vous voulez simuler la finale.",
+            "Choisissez le niveau associé à cette finale. Les tirs réalisés, générés par l'ordinateur, se calent sur le niveau actuel de chaque niveau de compétition.",
+            "Choisissez le nombre de tireurs pour lesquels vous voulez créer cette finale.",
+            "Nommez vos tireurs pour pouvoir facilement rentrer leurs points dans le simulateur.",
+            "Lancez la simulation grâce au bouton \"SIMULER UNE FINALE\""
+        ]
+    }
+}

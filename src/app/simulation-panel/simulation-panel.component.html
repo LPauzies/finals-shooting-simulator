@@ -1,1 +1,8 @@
-<p>simulation-panel works!</p>
+<span *ngIf="!isSimulationGenerated">
+    <app-help></app-help>
+</span>
+<span *ngIf="isSimulationGenerated && simulationParameters">
+    <mat-toolbar>
+        <span>{{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
+    </mat-toolbar>
+</span>

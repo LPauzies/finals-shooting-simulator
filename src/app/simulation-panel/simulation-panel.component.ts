@@ -1,20 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-export class SimulationPanelParameters {
-
-  sex: string;
-  category: string;
-  level: string;
-  names: Array<string>;
-
-  constructor(sex: string, category: string, level: string, names: Array<string>) {
-    this.sex = sex;
-    this.category = category;
-    this.level = level;
-    this.names = names;
-  }
-
-}
+import { Subscription } from 'rxjs';
+import { SimulationParameters, SimulationParametersService } from 'src/app/services/parameters.service';
 
 @Component({
   selector: 'app-simulation-panel',
@@ -23,9 +9,30 @@ export class SimulationPanelParameters {
 })
 export class SimulationPanelComponent implements OnInit {
 
-  constructor() { }
+  isSimulationGenerated: boolean;
+  simulationSubscription: Subscription;
+  simulationParameters?: SimulationParameters;
+
+  constructor(
+    private simulationParametersService: SimulationParametersService
+  ) {
+    this.isSimulationGenerated = false;
+    this.simulationSubscription = this.simulationParametersService.getCurrentSimulationParameters().subscribe(params => {
+      if (!params.isDefault()) {
+        this.simulationParameters = params;
+        this.isSimulationGenerated = true;
+      } else {
+        this.isSimulationGenerated = false;
+      }
+      
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.simulationSubscription.unsubscribe();
   }
 
 }

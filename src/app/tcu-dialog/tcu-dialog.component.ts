@@ -18,7 +18,7 @@ export class TcuDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.loading = true;
-    this.languageService.getAppData().subscribe(data => {
+    this.languageService.getCurrentAppData().subscribe(data => {
       this.appData = data;
       this.loading = false;
     });

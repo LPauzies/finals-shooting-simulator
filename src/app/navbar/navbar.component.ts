@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/services/language.service';
 import { FormControl, Validators } from '@angular/forms';
-import { SimulationPanelParameters } from 'src/app/simulation-panel/simulation-panel.component';
+import { SimulationParameters, SimulationParametersService } from 'src/app/services/parameters.service';
 import { NameService } from 'src/app/services/name.service';
-import { ThrowStmt } from '@angular/compiler';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   appData?: any;
   categories?: Array<any>
 
-  // Navbar Form
+  // Navbar Form with default values
   sexControl = new FormControl("M");
   categoryControl = new FormControl("CG");
   levelControl = new FormControl("local");
@@ -26,16 +26,20 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private languageService: LanguageService,
-    private nameService: NameService
+    private nameService: NameService,
+    private simulationParametersService: SimulationParametersService
   ) {
     this.loading = true;
     this.simulationGenerated = false;
-    this.languageService.getAppData().subscribe(data => {
+    this.languageService.getCurrentAppData().subscribe(data => {
+      if (!LanguageService.isDefaultAppData(data)) {
         this.appData = data;
         this.categories = data.navbar.choices.category.M;
         this.loading = false;
+      } else {
+        this.loading = true;
       }
-    ); 
+    });
   }
 
   ngOnInit(): void {
@@ -77,12 +81,27 @@ export class NavbarComponent implements OnInit {
       console.log("Send error Validator!");
       return;
     }
-    let params = new SimulationPanelParameters(
+    let params = new SimulationParameters(
       this.sexControl.value,
+      this.retrieveSexLabel(this.sexControl.value),
       this.categoryControl.value,
+      this.retrieveCategoryLabel(this.categoryControl.value, this.sexControl.value),
       this.levelControl.value,
+      this.retrieveLevelLabel(this.levelControl.value),
       this.names.map(x => x.value)
     );
+    this.simulationParametersService.changeCurrentSimulationParameters(params);
+  }
+  
+  retrieveSexLabel(value: string): string {
+    return this.appData.navbar.choices.sex.find((x: { value: string; }) => x.value == value).label;
   }
 
+  retrieveCategoryLabel(value: string, sex: string): string {
+    return this.appData.navbar.choices.category[sex].find((x: { value: string; }) => x.value == value).label;
+  }
+
+  retrieveLevelLabel(value: string): string {
+    return this.appData.navbar.choices.level.find((x: { value: string; }) => x.value == value).label;
+  }
 }

@@ -1,6 +1,6 @@
 <mat-divider></mat-divider>
 <div id="footer" *ngIf="loading"></div>
-<div id="footer" *ngIf="!loading">
+<div id="footer" *ngIf="!loading && appData">
     <mat-grid-list cols="3" rowHeight="fit" id="footer-grid">
         <mat-grid-tile>
             <span id="tcu" (click)="openTCUDialog()">
@@ -23,7 +23,7 @@
                     <i [style.color]="owner.links.facebook.color" [className]="owner.links.facebook.icon"></i>
                 </a>
                 &nbsp;
-                <a [href]="owner.links.twitter.link" target="_blank">
+                <a [href]="owner.links.mail.link" target="_blank">
                     <i [style.color]="owner.links.mail.color" [className]="owner.links.mail.icon"></i>
                 </a>
                 <br>
