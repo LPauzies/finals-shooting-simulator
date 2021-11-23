@@ -84,5 +84,25 @@
             "Nommez vos tireurs pour pouvoir facilement rentrer leurs points dans le simulateur.",
             "Lancez la simulation grâce au bouton \"SIMULER UNE FINALE\""
         ]
+    },
+    "simulation": {
+        "labels": {
+            "ia": "IA",
+            "shoot": "Tir",
+            "name": "Nom",
+            "rank": "Classement",
+            "status": "Statut",
+            "placeholder_shoot": "Entrer le tir..."
+        },
+        "values": {
+            "status": {
+                "in": "En compétition",
+                "out": "Eliminé"
+            }
+        },
+        "actions": {
+            "shoot": "Valider le tir",
+            "export": "Exporter vers Excel"
+        }
     }
 }
