@@ -5,8 +5,52 @@
     <mat-toolbar>
         <span>{{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
         <span class="spacer"></span>
+        <button mat-raised-button color="primary" (click)="validateShoot()">{{ appData.actions.shoot }}</button>
+        <!--
+        <button mat-raised-button color="primary">{{ appData.actions.export }}</button>
+        -->
+        &nbsp;
+        &nbsp;
         <button mat-icon-button aria-label="Close simulation" (click)="deleteSimulation()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-toolbar>
+    <mat-divider></mat-divider> 
+    <br>
+    <table mat-table [dataSource]="shooterResults" class="mat-elevation-z8">
+        
+        <!-- Name Column -->
+        <ng-container matColumnDef="rank">
+            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.rank }} </th>
+            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.rank }} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.name }} </th>
+            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.name }} </td>
+        </ng-container>
+      
+        <!-- Shoot Column -->
+        <ng-container *ngFor="let column of displayShootColumns; let index = index" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef>{{ appData.labels.shoot }} {{ column }}</th>
+          <td mat-cell *matCellDef="let shooterResult">
+            <span *ngIf="indexForFilling === (index + 1) && !isIA(shooterResult.name)">
+                <input matInput type="number" min="0.0" max="10.9" step="0.1" [(ngModel)]="shooterResult[column]" [placeholder]="appData.labels.placeholder_shoot">
+            </span>
+            <span *ngIf="indexForFilling === (index + 1) && isIA(shooterResult.name)">{{ shooterResult[column] }}</span>
+            <span *ngIf="indexForFilling !== (index + 1)">{{ shooterResult[column] }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.status }} </th>
+            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.status }} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+      </table>
+      
 </span>
