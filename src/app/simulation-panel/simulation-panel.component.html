@@ -4,5 +4,9 @@
 <span *ngIf="isSimulationGenerated && simulationParameters">
     <mat-toolbar>
         <span>{{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button aria-label="Close simulation" (click)="deleteSimulation()">
+            <mat-icon>close</mat-icon>
+        </button>
     </mat-toolbar>
 </span>

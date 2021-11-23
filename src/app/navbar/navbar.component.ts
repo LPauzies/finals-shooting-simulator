@@ -3,7 +3,6 @@ import { LanguageService } from 'src/app/services/language.service';
 import { FormControl, Validators } from '@angular/forms';
 import { SimulationParameters, SimulationParametersService } from 'src/app/services/parameters.service';
 import { NameService } from 'src/app/services/name.service';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -40,12 +39,27 @@ export class NavbarComponent implements OnInit {
         this.loading = true;
       }
     });
+    this.simulationParametersService.getIsCurrentSimulation().subscribe(data => {
+      this.simulationGenerated = data;
+      if (this.simulationGenerated) {
+        this.sexControl.disable();
+        this.categoryControl.disable();
+        this.levelControl.disable();
+        this.shooterNumberControl.disable();
+        this.names.map(x => x.disable());
+      } else {
+        this.sexControl.enable();
+        this.categoryControl.enable();
+        this.levelControl.enable();
+        this.shooterNumberControl.enable();
+        this.names.map(x => x.enable());
+      }
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  refreshCategories(evt: any): void {
+  refreshCategoriesFromSex(evt: any): void {
     let selectedSex = evt.value;
     let currentSelectedCategory = this.categoryControl.value;
     let index = this.categories?.map(category => category.value).indexOf(currentSelectedCategory);
@@ -57,7 +71,17 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  refreshShooterNames(evt: any): void {
+  refreshShooterNamesFromSex(evt: any): void {
+    let selectedSex = evt.value;
+    let selectedShooterNumber = this.shooterNumberControl.value;
+    this.names = [];
+    for (let index = 0; index < selectedShooterNumber; index++) {
+      let name = (selectedSex === "M") ? this.nameService.getRandomMaleName() : this.nameService.getRandomFemaleName();
+      this.names.push(new FormControl(name, [Validators.required, Validators.minLength(3)]));
+    }
+  }
+
+  refreshShooterNamesFromShooterNumber(evt: any): void {
     let selectedShooterNumber = evt.value;
     let sex = this.sexControl.value;
     this.names = [];
@@ -91,6 +115,7 @@ export class NavbarComponent implements OnInit {
       this.names.map(x => x.value)
     );
     this.simulationParametersService.changeCurrentSimulationParameters(params);
+    this.simulationParametersService.changeIsCurrentSimulation(true);
   }
   
   retrieveSexLabel(value: string): string {

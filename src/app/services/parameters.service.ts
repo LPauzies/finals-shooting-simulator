@@ -66,4 +66,15 @@ export class SimulationParametersService {
         this.parameters.next(simulationParameters);
     }
 
+    private isSimulation = new BehaviorSubject(false);
+    private isCurrentSimulation = this.isSimulation.asObservable();
+
+    getIsCurrentSimulation(): Observable<boolean> {
+        return this.isCurrentSimulation;
+    }
+
+    changeIsCurrentSimulation(currentSimulation: boolean) {
+        this.isSimulation.next(currentSimulation);
+    }
+
 }

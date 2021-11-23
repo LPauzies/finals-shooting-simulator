@@ -35,4 +35,14 @@ export class SimulationPanelComponent implements OnInit {
     this.simulationSubscription.unsubscribe();
   }
 
+  deleteSimulation(): void {
+    this.simulationParametersService.changeCurrentSimulationParameters(
+      SimulationParameters.getDefaultSimulationParameters()
+    )
+    this.isSimulationGenerated = false;
+    this.simulationParametersService.changeIsCurrentSimulation(
+      false
+    );
+  }
+
 }
