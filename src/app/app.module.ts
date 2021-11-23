@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,9 @@ import { TcuDialogComponent } from './tcu-dialog/tcu-dialog.component';
 
 import { LanguageCookieService } from 'src/app/services/cookie.service';
 import { LanguageService } from 'src/app/services/language.service';
-import { SimulationParametersService } from 'src/app/services/parameters.service';
+import { SimulationParametersService } from 'src/app/services/simulation-parameters.service';
+import { MessageService } from 'src/app/services/message.service';
+import { ShootGeneratorService } from 'src/app/services/shoot-generator.service';
 import { SimulationPanelComponent } from './simulation-panel/simulation-panel.component';
 import { HelpComponent } from './help/help.component';
 
@@ -70,13 +73,16 @@ import { HelpComponent } from './help/help.component';
     MatIconModule,
     MatTooltipModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [
     CookieService,
     LanguageCookieService,
     LanguageService,
-    SimulationParametersService
+    SimulationParametersService,
+    MessageService,
+    ShootGeneratorService
   ],
   bootstrap: [AppComponent]
 })

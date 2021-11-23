@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/services/language.service';
 import { FormControl, Validators } from '@angular/forms';
-import { SimulationParameters, SimulationParametersService } from 'src/app/services/parameters.service';
+import { SimulationParameters, SimulationParametersService } from 'src/app/services/simulation-parameters.service';
 import { NameService } from 'src/app/services/name.service';
 
 @Component({

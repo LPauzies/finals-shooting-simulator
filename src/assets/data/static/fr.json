@@ -6,6 +6,13 @@
         "support": "Me soutenir",
         "made_with": "Fait avec"
     },
+    "message": {
+        "errors": {
+            "bad_value_shoot": "Le tir entré pour !0, de valeur !1 n'est pas valide, il doit être compris entre 0 et 10.9.",
+            "no_value_shoot": "Le tir entré pour !0 n'a pas de valeur.",
+            "too_much_decimals": "Le tir !0 entré pour !1 contient plus d'une décimale. Il ne doit en contenir qu'une au maximum."
+        }
+    },
     "tcu": {
         "title": "Conditions Générales d'Utilisation",
         "description": {
@@ -92,6 +99,7 @@
             "name": "Nom",
             "rank": "Classement",
             "status": "Statut",
+            "total": "Total",
             "placeholder_shoot": "Entrer le tir..."
         },
         "values": {
@@ -101,7 +109,7 @@
             }
         },
         "actions": {
-            "shoot": "Valider le tir",
+            "shoot": "Valider et générer le tir par l'IA",
             "export": "Exporter vers Excel"
         }
     }

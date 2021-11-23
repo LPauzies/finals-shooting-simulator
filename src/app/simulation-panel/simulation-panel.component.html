@@ -5,9 +5,9 @@
     <mat-toolbar>
         <span>{{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
         <span class="spacer"></span>
-        <button mat-raised-button color="primary" (click)="validateShoot()">{{ appData.actions.shoot }}</button>
+        <button mat-raised-button color="primary" (click)="validateGenerateAndGoToNextShoot()">{{ appData.simulation.actions.shoot }}</button>
         <!--
-        <button mat-raised-button color="primary">{{ appData.actions.export }}</button>
+        <button mat-raised-button color="primary">{{ appData.simulation.actions.export }}</button>
         -->
         &nbsp;
         &nbsp;
@@ -19,33 +19,39 @@
     <br>
     <table mat-table [dataSource]="shooterResults" class="mat-elevation-z8">
         
-        <!-- Name Column -->
+        <!-- Rank Column -->
         <ng-container matColumnDef="rank">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.rank }} </th>
+            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.rank }} </th>
             <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.rank }} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.name }} </th>
+            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.name }} </th>
             <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.name }} </td>
         </ng-container>
       
-        <!-- Shoot Column -->
+        <!-- Shoot Columns -->
         <ng-container *ngFor="let column of displayShootColumns; let index = index" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef>{{ appData.labels.shoot }} {{ column }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ formatShootColumn(column) }}</th>
           <td mat-cell *matCellDef="let shooterResult">
-            <span *ngIf="indexForFilling === (index + 1) && !isIA(shooterResult.name)">
-                <input matInput type="number" min="0.0" max="10.9" step="0.1" [(ngModel)]="shooterResult[column]" [placeholder]="appData.labels.placeholder_shoot">
+            <span *ngIf="indexForFilling === index && !isIA(shooterResult.name)">
+                <input matInput type="number" min="0.0" max="10.9" step="0.1" [(ngModel)]="shooterResult.scores[index]" [placeholder]="appData.simulation.labels.placeholder_shoot">
             </span>
-            <span *ngIf="indexForFilling === (index + 1) && isIA(shooterResult.name)">{{ shooterResult[column] }}</span>
-            <span *ngIf="indexForFilling !== (index + 1)">{{ shooterResult[column] }}</span>
+            <span *ngIf="indexForFilling === index && isIA(shooterResult.name)">{{ shooterResult.scores[index] }}</span>
+            <span *ngIf="indexForFilling !== index">{{ shooterResult.scores[index] }}</span>
           </td>
         </ng-container>
 
-        <!-- Name Column -->
+        <!-- Total Column -->
+        <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.total }} </th>
+            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.total }} </td>
+        </ng-container>
+
+        <!-- Status Column -->
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.labels.status }} </th>
+            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.status }} </th>
             <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.status }} </td>
         </ng-container>
       
