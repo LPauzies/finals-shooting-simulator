@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { SimulationParameters, SimulationParametersService } from 'src/app/services/simulation-parameters.service';
 import { LanguageService } from 'src/app/services/language.service';
@@ -20,12 +21,17 @@ export class SimulationPanelComponent implements OnInit {
   appData?: any;
 
   // Feature for Simulation feature
-  shooterResults: ShooterResult[] = [];
+  shooterResults: MatTableDataSource<ShooterResult>;
   eliminatedNames: string[] = [];
   displayColumns: string[] = [];
   displayShootColumns: string[] = [];
 
   indexForFilling: number = 0;
+
+  // Part of data model to call from HTML template
+  trend_up: number = ShooterModel.TREND_UP;
+  trend_equal: number = ShooterModel.TREND_EQUAL;
+  trend_down: number = ShooterModel.TREND_DOWN;
 
   constructor(
     private simulationParametersService: SimulationParametersService,
@@ -33,6 +39,7 @@ export class SimulationPanelComponent implements OnInit {
     private messageService: MessageService,
     private shootGeneratorService: ShootGeneratorService
   ) {
+    this.shooterResults = new MatTableDataSource();
     this.simulationSubscription = this.simulationParametersService.getCurrentSimulationParameters().subscribe(params => {
       this.languageService.getCurrentAppData().subscribe(data => {
         this.appData = data;
@@ -40,15 +47,15 @@ export class SimulationPanelComponent implements OnInit {
           this.simulationParameters = params;
           
           // Initialize data
-          this.shooterResults = [];
+          this.shooterResults.data = [];
           let IACount = ShooterModel.SHOOTER_NUMBER - this.simulationParameters.names.length;
-          this.simulationParameters.names.forEach(name => this.shooterResults.push(new ShooterResult(name, this.appData.simulation.values.status.in)));
+          this.simulationParameters.names.forEach(name => this.shooterResults.data.push(new ShooterResult(name, "person", this.appData.simulation.values.status.in)));
           for (let index = 1; index <= IACount; index++) {
             let name = `${this.appData.simulation.labels.ia} ${index}`;
-            this.shooterResults.push(new ShooterResult(name, this.appData.simulation.values.status.in));
+            this.shooterResults.data.push(new ShooterResult(name, "computer", this.appData.simulation.values.status.in));
           }
           this.displayShootColumns = [...Array(24).keys()].map(x => `${x+1}`);
-          this.displayColumns = ["rank", "name"].concat(this.displayShootColumns).concat(["total", "status"]);
+          this.displayColumns = ["trend", "rank", "icon", "name"].concat(this.displayShootColumns).concat(["total", "status"]);
 
           this.isSimulationGenerated = true;
         } else {
@@ -77,7 +84,7 @@ export class SimulationPanelComponent implements OnInit {
 
   validateShoot(): boolean {
     // Check if the shoot is OK when filled by human
-    let humans = this.shooterResults.filter(x => !this.isIA(x.name));
+    let humans = this.shooterResults.data.filter(x => !this.isIA(x.name));
     for (const human of humans) {
       let valueToCheck = human.getScoreForAShoot(this.indexForFilling);
       if (valueToCheck !== undefined && valueToCheck !== null) {
@@ -106,24 +113,36 @@ export class SimulationPanelComponent implements OnInit {
   }
 
   generateAIShoot(): void {
-    this.shooterResults.filter(x => this.isIA(x.name)).forEach(shooterAI => {
+    this.shooterResults.data.filter(x => this.isIA(x.name)).forEach(shooterAI => {
       shooterAI.setScoreForAShoot(this.shootGeneratorService.generateRandomShoot(), this.indexForFilling);
     });
   }
 
   computeTotalScores(): void {
-    this.shooterResults.forEach(shooter => shooter.computeTotal());
+    this.shooterResults.data.forEach(shooter => shooter.computeTotal());
   }
 
-  sortAndRank(): void {
-    // TODO
+  sortTrendAndRank(): void {
+    let previousState: ShooterResult[] = JSON.parse(JSON.stringify(this.shooterResults.data));
+    // Each one of these collections have same length (8 shooters)
+    this.shooterResults.data = this.shooterResults.data.sort((s1, s2) => s2.total - s1.total);
+    for (let index = 0; index < this.shooterResults.data.length; index++) {
+      this.shooterResults.data[index].rank = index + 1;
+      if (previousState[index].rank != null) {
+        let currentRankTotal = this.shooterResults.data[index].total;
+        let previousRankTotal = previousState[index].total;
+        if (currentRankTotal > previousRankTotal) this.shooterResults.data[index].trend = this.trend_up;
+        else if (currentRankTotal < previousRankTotal) this.shooterResults.data[index].trend = this.trend_down;
+        else this.shooterResults.data[index].trend = this.trend_equal;
+      }
+    }
   }
 
   validateGenerateAndGoToNextShoot(): void {
     if (!this.validateShoot()) return;
     this.generateAIShoot();
     this.computeTotalScores();
-    this.sortAndRank();
+    this.sortTrendAndRank();
     this.indexForFilling++;
   }
 

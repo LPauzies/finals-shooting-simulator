@@ -98,6 +98,7 @@
             "shoot": "Tir",
             "name": "Nom",
             "rank": "Classement",
+            "trend": "Tendance",
             "status": "Statut",
             "total": "Total",
             "placeholder_shoot": "Entrer le tir..."
@@ -106,6 +107,9 @@
             "status": {
                 "in": "En compétition",
                 "out": "Eliminé"
+            },
+            "trend": {
+                "tooltip": "Tendance par rapport au tir précédent."
             }
         },
         "actions": {

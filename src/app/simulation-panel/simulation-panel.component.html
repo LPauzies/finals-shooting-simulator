@@ -18,41 +18,67 @@
     <mat-divider></mat-divider> 
     <br>
     <table mat-table [dataSource]="shooterResults" class="mat-elevation-z8">
+
+        <!-- Rank Column -->
+        <ng-container matColumnDef="trend">
+            <th mat-header-cell *matHeaderCellDef [matTooltip]="appData.simulation.values.trend.tooltip" class="default-cursor"> {{ appData.simulation.labels.trend }} </th>
+            <td mat-cell *matCellDef="let shooterResult"> 
+                <mat-icon *ngIf="shooterResult.trend === trend_up" class="success">
+                    trending_up
+                </mat-icon>
+                <mat-icon *ngIf="shooterResult.trend === trend_down" class="error">
+                    trending_down
+                </mat-icon>
+                <mat-icon *ngIf="shooterResult.trend === trend_equal" color="primary">
+                    trending_flat
+                </mat-icon>
+            </td>
+        </ng-container>
         
         <!-- Rank Column -->
         <ng-container matColumnDef="rank">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.rank }} </th>
-            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.rank }} </td>
+            <th mat-header-cell *matHeaderCellDef class="default-cursor"> {{ appData.simulation.labels.rank }} </th>
+            <td mat-cell *matCellDef="let shooterResult" class="default-cursor"> {{ shooterResult.rank }} </td>
+        </ng-container>
+
+        <!-- Icon Column -->
+        <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef class="default-cursor"></th>
+            <td mat-cell *matCellDef="let shooterResult" class="default-cursor"> 
+                <mat-icon>
+                    {{ shooterResult.icon }}
+                </mat-icon>
+            </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.name }} </th>
-            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.name }} </td>
+            <th mat-header-cell *matHeaderCellDef class="default-cursor"> {{ appData.simulation.labels.name }} </th>
+            <td mat-cell *matCellDef="let shooterResult" class="default-cursor">{{ shooterResult.name }}</td>
         </ng-container>
       
         <!-- Shoot Columns -->
         <ng-container *ngFor="let column of displayShootColumns; let index = index" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef>{{ formatShootColumn(column) }}</th>
+          <th mat-header-cell *matHeaderCellDef class="default-cursor">{{ formatShootColumn(column) }}</th>
           <td mat-cell *matCellDef="let shooterResult">
             <span *ngIf="indexForFilling === index && !isIA(shooterResult.name)">
                 <input matInput type="number" min="0.0" max="10.9" step="0.1" [(ngModel)]="shooterResult.scores[index]" [placeholder]="appData.simulation.labels.placeholder_shoot">
             </span>
-            <span *ngIf="indexForFilling === index && isIA(shooterResult.name)">{{ shooterResult.scores[index] }}</span>
-            <span *ngIf="indexForFilling !== index">{{ shooterResult.scores[index] }}</span>
+            <span *ngIf="indexForFilling === index && isIA(shooterResult.name)" class="default-cursor">{{ shooterResult.scores[index] }}</span>
+            <span *ngIf="indexForFilling !== index" class="default-cursor">{{ shooterResult.scores[index] }}</span>
           </td>
         </ng-container>
 
         <!-- Total Column -->
         <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.total }} </th>
-            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.total }} </td>
+            <th mat-header-cell *matHeaderCellDef class="default-cursor"> {{ appData.simulation.labels.total }} </th>
+            <td mat-cell *matCellDef="let shooterResult" class="default-cursor"> {{ shooterResult.total }} </td>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> {{ appData.simulation.labels.status }} </th>
-            <td mat-cell *matCellDef="let shooterResult"> {{ shooterResult.status }} </td>
+            <th mat-header-cell *matHeaderCellDef class="default-cursor"> {{ appData.simulation.labels.status }} </th>
+            <td mat-cell *matCellDef="let shooterResult" class="default-cursor"> {{ shooterResult.status }} </td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
