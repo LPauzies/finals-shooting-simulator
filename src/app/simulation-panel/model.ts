@@ -12,18 +12,18 @@ class ShooterResult {
 
     public readonly name: string;
     public readonly icon: string;
-    status: string;
     total: number;
     rank?: number;
     trend: number;
+    eliminated: boolean;
     scores: number[];
 
-    constructor(name: string, icon: string, status: string) {
+    constructor(name: string, icon: string) {
         this.name = name;
         this.icon = icon;
-        this.status = status;
         this.total = 0;
         this.trend = ShooterModel.TREND_EQUAL;
+        this.eliminated = false;
         this.scores = new Array(24);
     }
 

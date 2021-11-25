@@ -6,12 +6,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MessageService {
 
+    static DEFAULT_DURATION_MESSAGE = 5000;
+
     constructor(
         private snackBar: MatSnackBar
     ) {}
 
     openMessage(message: string) {
-        this.snackBar.open(message, "OK");
+        this.snackBar.open(message, "OK", { duration: MessageService.DEFAULT_DURATION_MESSAGE });
     }
 
     openErrorMessage(message: string) {

@@ -116,5 +116,9 @@
             "shoot": "Valider et générer le tir par l'IA",
             "export": "Exporter vers Excel"
         }
+    },
+    "winner": {
+        "title": "Nous avons un champion !",
+        "score": "Score total"
     }
 }

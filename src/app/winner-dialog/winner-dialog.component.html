@@ -1,0 +1,10 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+    <h1 mat-dialog-title>🏆 {{ appData.winner.title }}</h1>
+    <mat-dialog-content>
+        <h2>
+            {{ data.shooter.name }}
+        </h2>
+        <h3>{{ appData.winner.score }} : <b>{{ data.shooter.total }}</b></h3>
+    </mat-dialog-content>
+</div>

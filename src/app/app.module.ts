@@ -39,6 +39,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { ShootGeneratorService } from 'src/app/services/shoot-generator.service';
 import { SimulationPanelComponent } from './simulation-panel/simulation-panel.component';
 import { HelpComponent } from './help/help.component';
+import { WinnerDialogComponent } from './winner-dialog/winner-dialog.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { HelpComponent } from './help/help.component';
     NavbarComponent,
     TcuDialogComponent,
     SimulationPanelComponent,
-    HelpComponent
+    HelpComponent,
+    WinnerDialogComponent
   ],
   imports: [
     HttpClientModule,

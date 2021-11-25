@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { SimulationParameters, SimulationParametersService } from 'src/app/services/simulation-parameters.service';
@@ -6,7 +6,12 @@ import { LanguageService } from 'src/app/services/language.service';
 import { MessageService } from 'src/app/services/message.service';
 import { ShootGeneratorService } from 'src/app/services/shoot-generator.service';
 import { ShooterResult, ShooterModel } from 'src/app/simulation-panel/model';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WinnerDialogComponent } from '../winner-dialog/winner-dialog.component';
 
+export interface WinnerDialogData {
+  shooter: ShooterResult
+}
 
 @Component({
   selector: 'app-simulation-panel',
@@ -22,22 +27,27 @@ export class SimulationPanelComponent implements OnInit {
 
   // Feature for Simulation feature
   shooterResults: MatTableDataSource<ShooterResult>;
-  eliminatedNames: string[] = [];
   displayColumns: string[] = [];
   displayShootColumns: string[] = [];
 
   indexForFilling: number = 0;
 
+  isSimulationFinished = false;
+
   // Part of data model to call from HTML template
-  trend_up: number = ShooterModel.TREND_UP;
-  trend_equal: number = ShooterModel.TREND_EQUAL;
-  trend_down: number = ShooterModel.TREND_DOWN;
+  trendUp: number = ShooterModel.TREND_UP;
+  trendEqual: number = ShooterModel.TREND_EQUAL;
+  trendDown: number = ShooterModel.TREND_DOWN;
+  // Static part through simulator
+  // Index starts at 0
+  eliminationPhase: number[] = [11, 13, 15, 17, 19, 21, 23];
 
   constructor(
     private simulationParametersService: SimulationParametersService,
     private languageService: LanguageService,
     private messageService: MessageService,
-    private shootGeneratorService: ShootGeneratorService
+    private shootGeneratorService: ShootGeneratorService,
+    public dialog: MatDialog
   ) {
     this.shooterResults = new MatTableDataSource();
     this.simulationSubscription = this.simulationParametersService.getCurrentSimulationParameters().subscribe(params => {
@@ -49,13 +59,15 @@ export class SimulationPanelComponent implements OnInit {
           // Initialize data
           this.shooterResults.data = [];
           let IACount = ShooterModel.SHOOTER_NUMBER - this.simulationParameters.names.length;
-          this.simulationParameters.names.forEach(name => this.shooterResults.data.push(new ShooterResult(name, "person", this.appData.simulation.values.status.in)));
+          this.simulationParameters.names.forEach(name => this.shooterResults.data.push(new ShooterResult(name, "person")));
           for (let index = 1; index <= IACount; index++) {
             let name = `${this.appData.simulation.labels.ia} ${index}`;
-            this.shooterResults.data.push(new ShooterResult(name, "computer", this.appData.simulation.values.status.in));
+            this.shooterResults.data.push(new ShooterResult(name, "computer"));
           }
+          // Columns shoot ids
           this.displayShootColumns = [...Array(24).keys()].map(x => `${x+1}`);
-          this.displayColumns = ["trend", "rank", "icon", "name"].concat(this.displayShootColumns).concat(["total", "status"]);
+          // Columns all ids
+          this.displayColumns = ["trend", "rank", "icon", "name"].concat(this.displayShootColumns).concat(["total", "eliminated"]);
 
           this.isSimulationGenerated = true;
         } else {
@@ -80,11 +92,12 @@ export class SimulationPanelComponent implements OnInit {
     this.simulationParametersService.changeIsCurrentSimulation(false);
     // Reset the filling simulation
     this.indexForFilling = 0;
+    this.isSimulationFinished = false;
   }
 
   validateShoot(): boolean {
     // Check if the shoot is OK when filled by human
-    let humans = this.shooterResults.data.filter(x => !this.isIA(x.name));
+    let humans = this.shooterResults.data.filter(x => !x.eliminated).filter(x => !this.isIA(x.name));
     for (const human of humans) {
       let valueToCheck = human.getScoreForAShoot(this.indexForFilling);
       if (valueToCheck !== undefined && valueToCheck !== null) {
@@ -113,36 +126,56 @@ export class SimulationPanelComponent implements OnInit {
   }
 
   generateAIShoot(): void {
-    this.shooterResults.data.filter(x => this.isIA(x.name)).forEach(shooterAI => {
+    this.shooterResults.data.filter(x => !x.eliminated).filter(x => this.isIA(x.name)).forEach(shooterAI => {
       shooterAI.setScoreForAShoot(this.shootGeneratorService.generateRandomShoot(), this.indexForFilling);
     });
   }
 
   computeTotalScores(): void {
-    this.shooterResults.data.forEach(shooter => shooter.computeTotal());
+    this.shooterResults.data.filter(x => !x.eliminated).forEach(shooter => shooter.computeTotal());
   }
 
   sortTrendAndRank(): void {
-    let previousState: ShooterResult[] = JSON.parse(JSON.stringify(this.shooterResults.data));
     // Each one of these collections have same length (8 shooters)
+    let previousState: ShooterResult[] = JSON.parse(JSON.stringify(this.shooterResults.data));
     this.shooterResults.data = this.shooterResults.data.sort((s1, s2) => s2.total - s1.total);
     for (let index = 0; index < this.shooterResults.data.length; index++) {
       this.shooterResults.data[index].rank = index + 1;
       if (previousState[index].rank != null) {
         let currentRankTotal = this.shooterResults.data[index].total;
         let previousRankTotal = previousState[index].total;
-        if (currentRankTotal > previousRankTotal) this.shooterResults.data[index].trend = this.trend_up;
-        else if (currentRankTotal < previousRankTotal) this.shooterResults.data[index].trend = this.trend_down;
-        else this.shooterResults.data[index].trend = this.trend_equal;
+        if (currentRankTotal > previousRankTotal) this.shooterResults.data[index].trend = this.trendUp;
+        else if (currentRankTotal < previousRankTotal) this.shooterResults.data[index].trend = this.trendDown;
+        else this.shooterResults.data[index].trend = this.trendEqual;
+      }
+    }
+    // Elimination phase at shoots 12, 14, 16, 18, 20, 22, 24
+    if (this.eliminationPhase.includes(this.indexForFilling)) {
+      // Elimination phase
+      let lastEliminated = this.shooterResults.data.filter(shooter => !shooter.eliminated).length - 1
+      this.shooterResults.data[lastEliminated].eliminated = true;
+    }
+  }
+
+  checkWinner(): void {
+    // After 24 shoot (index 23) we should have a winner
+    if (this.indexForFilling >= 23) {
+      let winner = this.shooterResults.data.find(shooter => !shooter.eliminated);
+      if (winner) {
+        this.isSimulationFinished = true;
+        this.dialog.open(WinnerDialogComponent, { data: { shooter: winner } });
       }
     }
   }
 
-  validateGenerateAndGoToNextShoot(): void {
+  @HostListener("document:keypress", ["$event"])
+  validateGenerateAndGoToNextShoot(event?: KeyboardEvent): void {
+    if (event?.key !== "Enter") return;
     if (!this.validateShoot()) return;
     this.generateAIShoot();
     this.computeTotalScores();
     this.sortTrendAndRank();
+    this.checkWinner();
     this.indexForFilling++;
   }
 
