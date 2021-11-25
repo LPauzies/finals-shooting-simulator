@@ -88,12 +88,14 @@ export class SimulationPanelComponent implements OnInit {
     this.simulationParametersService.changeCurrentSimulationParameters(
       SimulationParameters.getDefaultSimulationParameters()
     );
+    // Reset the simulation
     this.isSimulationGenerated = false;
     this.simulationParametersService.changeIsCurrentSimulation(false);
-    // Reset the filling simulation
     this.indexForFilling = 0;
     this.isSimulationFinished = false;
   }
+
+  // Simulation process
 
   validateShoot(): boolean {
     // Check if the shoot is OK when filled by human
@@ -168,16 +170,25 @@ export class SimulationPanelComponent implements OnInit {
     }
   }
 
-  @HostListener("document:keypress", ["$event"])
-  validateGenerateAndGoToNextShoot(event?: KeyboardEvent): void {
-    if (event?.key !== "Enter") return;
+  validateGenerateAndGoToNextShoot(): void {
+    if (this.isSimulationFinished) return;
     if (!this.validateShoot()) return;
     this.generateAIShoot();
     this.computeTotalScores();
     this.sortTrendAndRank();
     this.checkWinner();
-    this.indexForFilling++;
+    this.indexForFilling++;    
   }
+
+  // Functions using Host events
+
+  @HostListener("document:keypress", ["$event"])
+  hostValidateGenerateAndGoToNextShoot(event: KeyboardEvent): void {
+    // Case of enter key press
+    if (event?.key === "Enter") this.validateGenerateAndGoToNextShoot();
+  }
+
+  // Utils function for this component
 
   formatShootColumn(shootNumber: string) {
     return `${this.appData.simulation.labels.shoot} ${shootNumber}`;
