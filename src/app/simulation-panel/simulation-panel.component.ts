@@ -198,4 +198,23 @@ export class SimulationPanelComponent implements OnInit {
     return name.includes(this.appData.simulation.labels.ia)
   }
 
+  generateShooterCSSClass(shooter: ShooterResult): string[] {
+    let classes = [];
+    switch (shooter.rank) {
+      case 1:
+        classes.push('gold');
+        break;
+      case 2:
+        classes.push('silver');
+        break;
+      case 3:
+        classes.push('bronze');
+        break;
+      default:
+        if (shooter.eliminated) classes.push('disabled');
+        break;
+    }
+    return classes;
+  }
+
 }
