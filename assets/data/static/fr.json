@@ -42,6 +42,7 @@
     "navbar": {
         "sex": "Sexe",
         "category": "Catégorie",
+        "weapon": "Arme",
         "level": "Niveau de compétition",
         "shooternumber": "Nombre de tireurs",
         "shooterlabel": "Nom de tireur",
@@ -67,6 +68,10 @@
                     { "value": "D3", "label": "Dame 3" }
                 ]
             },
+            "weapon": [
+                { "value": "rifle", "label": "Carabine" },
+                { "value" : "pistol", "label": "Pistolet"}
+            ],
             "level": [
                 { "value": "local", "label": "Départemental" },
                 { "value": "region", "label": "Régional" },
@@ -75,7 +80,7 @@
                 { "value": "olympic", "label": "Olympique" }
             ],
             "shooternumber": [
-                1, 2, 3, 4
+                1, 2, 3, 4, 5, 6, 7, 8
             ]
         },
         "actions": {
