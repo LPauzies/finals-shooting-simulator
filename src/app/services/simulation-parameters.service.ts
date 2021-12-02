@@ -10,15 +10,19 @@ export class SimulationParameters {
     sexLabel: string;
     category: string;
     categoryLabel: string;
+    weapon: string;
+    weaponLabel: string;
     level: string;
     levelLabel: string;
     names: Array<string>;
   
-    constructor(sex: string, sexLabel: string, category: string, categoryLabel: string, level: string, levelLabel: string, names: Array<string>) {
+    constructor(sex: string, sexLabel: string, category: string, categoryLabel: string, weapon: string, weaponLabel: string, level: string, levelLabel: string, names: Array<string>) {
       this.sex = sex;
       this.sexLabel = sexLabel;
       this.category = category;
       this.categoryLabel = categoryLabel;
+      this.weapon = weapon;
+      this.weaponLabel = weaponLabel;
       this.level = level;
       this.levelLabel = levelLabel;
       this.names = names;
@@ -26,6 +30,8 @@ export class SimulationParameters {
 
     static getDefaultSimulationParameters() {
         return new SimulationParameters(
+            SimulationParameters.DEFAULT_STRING,
+            SimulationParameters.DEFAULT_STRING,
             SimulationParameters.DEFAULT_STRING,
             SimulationParameters.DEFAULT_STRING,
             SimulationParameters.DEFAULT_STRING,

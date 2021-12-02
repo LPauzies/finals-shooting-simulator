@@ -4,10 +4,12 @@ import { Subscription } from 'rxjs';
 import { SimulationParameters, SimulationParametersService } from 'src/app/services/simulation-parameters.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { MessageService } from 'src/app/services/message.service';
-import { ShootGeneratorService } from 'src/app/services/shoot-generator.service';
+import { NormalDistributionService } from 'src/app/services/normal-distribution.service';
+import { ShootService } from 'src/app/services/shoot.service';
 import { ShooterResult, ShooterModel } from 'src/app/simulation-panel/model';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WinnerDialogComponent } from '../winner-dialog/winner-dialog.component';
+import { ShooterGeneratorFactory } from 'src/app/services/shooter-generator/shooter-generator-factory';
 
 export interface WinnerDialogData {
   shooter: ShooterResult
@@ -24,6 +26,7 @@ export class SimulationPanelComponent implements OnInit {
   simulationSubscription: Subscription;
   simulationParameters?: SimulationParameters;
   appData?: any;
+  shooterGenerator?: any;
 
   // Feature for Simulation feature
   shooterResults: MatTableDataSource<ShooterResult>;
@@ -46,7 +49,8 @@ export class SimulationPanelComponent implements OnInit {
     private simulationParametersService: SimulationParametersService,
     private languageService: LanguageService,
     private messageService: MessageService,
-    private shootGeneratorService: ShootGeneratorService,
+    private normalDistributionService: NormalDistributionService,
+    private shootService: ShootService,
     public dialog: MatDialog
   ) {
     this.shooterResults = new MatTableDataSource();
@@ -55,6 +59,7 @@ export class SimulationPanelComponent implements OnInit {
         this.appData = data;
         if (!params.isDefault()) {
           this.simulationParameters = params;
+          this.shooterGenerator = ShooterGeneratorFactory.createShooterGenerator(params.category, params.level, params.weapon);
           
           // Initialize data
           this.shooterResults.data = [];
@@ -77,8 +82,7 @@ export class SimulationPanelComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.simulationSubscription.unsubscribe();
@@ -103,14 +107,14 @@ export class SimulationPanelComponent implements OnInit {
     for (const human of humans) {
       let valueToCheck = human.getScoreForAShoot(this.indexForFilling);
       if (valueToCheck !== undefined && valueToCheck !== null) {
-        if (valueToCheck < ShootGeneratorService.MIN_VALUE_SHOOT || valueToCheck > ShootGeneratorService.MAX_VALUE_SHOOT) {
+        if (valueToCheck < ShootService.MIN_VALUE_SHOOT || valueToCheck > ShootService.MAX_VALUE_SHOOT) {
           let formattedMessage: string = this.appData.message.errors.bad_value_shoot;
           formattedMessage = MessageService.formatMessage(formattedMessage, 0, human.name);
           formattedMessage = MessageService.formatMessage(formattedMessage, 1, valueToCheck.toString());
           this.messageService.openErrorMessage(formattedMessage);
           return false;
         }
-        if (!ShootGeneratorService.isCorrectShoot(valueToCheck)) {
+        if (!ShootService.isCorrectShoot(valueToCheck)) {
           let formattedMessage: string = this.appData.message.errors.too_much_decimals;
           formattedMessage = MessageService.formatMessage(formattedMessage, 0, valueToCheck.toString());
           formattedMessage = MessageService.formatMessage(formattedMessage, 1, human.name);
@@ -129,7 +133,7 @@ export class SimulationPanelComponent implements OnInit {
 
   generateAIShoot(): void {
     this.shooterResults.data.filter(x => !x.eliminated).filter(x => this.isIA(x.name)).forEach(shooterAI => {
-      shooterAI.setScoreForAShoot(this.shootGeneratorService.generateRandomShoot(), this.indexForFilling);
+      shooterAI.setScoreForAShoot(this.shooterGenerator.generateShoot(), this.indexForFilling);
     });
   }
 

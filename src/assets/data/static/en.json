@@ -6,6 +6,13 @@
         "support": "Me soutenir",
         "made_with": "Fait avec"
     },
+    "message": {
+        "errors": {
+            "bad_value_shoot": "Le tir entré pour !0, de valeur !1 n'est pas valide, il doit être compris entre 0 et 10.9.",
+            "no_value_shoot": "Le tir entré pour !0 n'a pas de valeur.",
+            "too_much_decimals": "Le tir !0 entré pour !1 contient plus d'une décimale. Il ne doit en contenir qu'une au maximum."
+        }
+    },
     "tcu": {
         "title": "Conditions Générales d'Utilisation",
         "description": {
@@ -35,6 +42,7 @@
     "navbar": {
         "sex": "Sexe",
         "category": "Catégorie",
+        "weapon": "Arme",
         "level": "Niveau de compétition",
         "shooternumber": "Nombre de tireurs",
         "shooterlabel": "Nom de tireur",
@@ -60,6 +68,10 @@
                     { "value": "D3", "label": "Dame 3" }
                 ]
             },
+            "weapon": [
+                { "value": "rifle", "label": "Carabine" },
+                { "value" : "pistol", "label": "Pistolet"}
+            ],
             "level": [
                 { "value": "local", "label": "Départemental" },
                 { "value": "region", "label": "Régional" },
@@ -68,7 +80,7 @@
                 { "value": "olympic", "label": "Olympique" }
             ],
             "shooternumber": [
-                1, 2, 3, 4
+                1, 2, 3, 4, 5, 6, 7, 8
             ]
         },
         "actions": {
@@ -91,18 +103,27 @@
             "shoot": "Tir",
             "name": "Nom",
             "rank": "Classement",
+            "trend": "Tendance",
             "status": "Statut",
+            "total": "Total",
             "placeholder_shoot": "Entrer le tir..."
         },
         "values": {
             "status": {
                 "in": "En compétition",
                 "out": "Eliminé"
+            },
+            "trend": {
+                "tooltip": "Tendance par rapport au tir précédent."
             }
         },
         "actions": {
-            "shoot": "Valider le tir",
+            "shoot": "Valider et générer le tir par l'IA",
             "export": "Exporter vers Excel"
         }
+    },
+    "winner": {
+        "title": "Nous avons un champion !",
+        "score": "Score total"
     }
 }

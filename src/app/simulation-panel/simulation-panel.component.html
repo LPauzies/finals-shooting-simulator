@@ -3,19 +3,16 @@
 </span>
 <span *ngIf="isSimulationGenerated && simulationParameters">
     <mat-toolbar>
-        <span>{{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
+        <span>{{ simulationParameters.weaponLabel }} - 10M - {{ simulationParameters.categoryLabel }} ({{ simulationParameters.category }}) - {{ simulationParameters.levelLabel }}</span>
         <span class="spacer"></span>
         <button mat-raised-button color="primary" (click)="validateGenerateAndGoToNextShoot()" [disabled]="isSimulationFinished">{{ appData.simulation.actions.shoot }}</button>
-        <!--
-        <button mat-raised-button color="primary">{{ appData.simulation.actions.export }}</button>
-        -->
         &nbsp;
         &nbsp;
         <button mat-icon-button aria-label="Close simulation" (click)="deleteSimulation()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-toolbar>
-    <mat-divider></mat-divider> 
+    <mat-divider></mat-divider>
     <br>
     <table mat-table [dataSource]="shooterResults" class="mat-elevation-z8">
 

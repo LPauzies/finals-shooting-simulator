@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   // Navbar Form with default values
   sexControl = new FormControl("M");
   categoryControl = new FormControl("CG");
+  weaponControl = new FormControl("rifle");
   levelControl = new FormControl("local");
   shooterNumberControl = new FormControl(1);
   names = [new FormControl(this.nameService.getRandomMaleName(), [Validators.required, Validators.minLength(3)])];
@@ -44,12 +45,14 @@ export class NavbarComponent implements OnInit {
       if (this.simulationGenerated) {
         this.sexControl.disable();
         this.categoryControl.disable();
+        this.weaponControl.disable();
         this.levelControl.disable();
         this.shooterNumberControl.disable();
         this.names.map(x => x.disable());
       } else {
         this.sexControl.enable();
         this.categoryControl.enable();
+        this.weaponControl.enable();
         this.levelControl.enable();
         this.shooterNumberControl.enable();
         this.names.map(x => x.enable());
@@ -110,6 +113,8 @@ export class NavbarComponent implements OnInit {
       this.retrieveSexLabel(this.sexControl.value),
       this.categoryControl.value,
       this.retrieveCategoryLabel(this.categoryControl.value, this.sexControl.value),
+      this.weaponControl.value,
+      this.retrieveWeaponLabel(this.weaponControl.value),
       this.levelControl.value,
       this.retrieveLevelLabel(this.levelControl.value),
       this.names.map(x => x.value)
@@ -124,6 +129,10 @@ export class NavbarComponent implements OnInit {
 
   retrieveCategoryLabel(value: string, sex: string): string {
     return this.appData.navbar.choices.category[sex].find((x: { value: string; }) => x.value == value).label;
+  }
+
+  retrieveWeaponLabel(value: string): string {
+    return this.appData.navbar.choices.weapon.find((x: { value: string; }) => x.value == value).label;
   }
 
   retrieveLevelLabel(value: string): string {

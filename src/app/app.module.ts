@@ -36,7 +36,8 @@ import { LanguageCookieService } from 'src/app/services/cookie.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { SimulationParametersService } from 'src/app/services/simulation-parameters.service';
 import { MessageService } from 'src/app/services/message.service';
-import { ShootGeneratorService } from 'src/app/services/shoot-generator.service';
+import { ShootService } from 'src/app/services/shoot.service';
+import { NormalDistributionService } from 'src/app/services/normal-distribution.service';
 import { SimulationPanelComponent } from './simulation-panel/simulation-panel.component';
 import { HelpComponent } from './help/help.component';
 import { WinnerDialogComponent } from './winner-dialog/winner-dialog.component';
@@ -84,7 +85,8 @@ import { WinnerDialogComponent } from './winner-dialog/winner-dialog.component';
     LanguageService,
     SimulationParametersService,
     MessageService,
-    ShootGeneratorService
+    ShootService,
+    NormalDistributionService
   ],
   bootstrap: [AppComponent]
 })

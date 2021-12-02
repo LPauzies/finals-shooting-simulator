@@ -24,6 +24,15 @@
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
+            <mat-label>{{ appData.navbar.weapon }}</mat-label>
+            <mat-select [formControl]="weaponControl">
+                <mat-option *ngFor="let weapon of appData.navbar.choices.weapon" [value]="weapon.value">
+                {{ weapon.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
             <mat-label>{{ appData.navbar.level }}</mat-label>
             <mat-select [formControl]="levelControl">
                 <mat-option *ngFor="let level of appData.navbar.choices.level" [value]="level.value">
